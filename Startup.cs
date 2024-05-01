@@ -52,7 +52,7 @@ namespace Blackbaud.AuthCodeFlowTutorial
             services.AddHttpClient<IConstituentsService, ConstituentsService>("ConstituentService", client =>
             {
                 // Set the base address to the SkyApiBaseUri and append constituent/v1/
-                client.BaseAddress = new Uri($"{appSettings.SkyApiBaseUri}constituent/v1/");
+                client.BaseAddress = new Uri($"{appSettings.SkyApiBaseUri}crm-conmg/");
 
                 // Set request headers for bb-api-subscription-key
                 client.DefaultRequestHeaders.Add("bb-api-subscription-key", appSettings.AuthSubscriptionKey);

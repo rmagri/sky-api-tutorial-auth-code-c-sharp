@@ -1,5 +1,6 @@
 using Blackbaud.AuthCodeFlowTutorial.Models;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace Blackbaud.AuthCodeFlowTutorial.Services
 {
@@ -76,7 +77,7 @@ namespace Blackbaud.AuthCodeFlowTutorial.Services
         {
             var httpClient = await GetClient(cancellationToken);
 
-            var response = await httpClient.GetAsync($"constituents", cancellationToken);
+            var response = await httpClient.GetAsync($"constituents/search?full_name=aew&site_filter_mode=All%20sites", cancellationToken);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
@@ -85,9 +86,11 @@ namespace Blackbaud.AuthCodeFlowTutorial.Services
 
             response.EnsureSuccessStatusCode();
 
-            var models = await response.Content.ReadFromJsonAsync<IEnumerable<ConstituentModel>>(cancellationToken: cancellationToken);
+            var content = await response.Content.ReadAsStringAsync();
 
-            return models;
+            var model = JsonSerializer.Deserialize<ApiResponseModel>(content);
+
+            return model.Value;
         }
     }
 }

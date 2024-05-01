@@ -65,20 +65,12 @@
                 <td>{{ constituent.id }}</td>
               </tr>
               <tr>
-                <td>type</td>
-                <td>{{ constituent.type }}</td>
-              </tr>
-              <tr>
                 <td>lookup_id</td>
                 <td>{{ constituent.lookup_id }}</td>
               </tr>
               <tr>
-                <td>first</td>
-                <td>{{ constituent.first }}</td>
-              </tr>
-              <tr>
-                <td>last</td>
-                <td>{{ constituent.last }}</td>
+                <td>name</td>
+                <td>{{ constituent.name }}</td>
               </tr>
             </tbody>
           </table>
@@ -120,8 +112,9 @@
                       }
 
                       // Access token is valid. Fetch constituent record.
-                      $http.get('/api/constituents/280').then(function (res) {
-                          $scope.constituent = res.data;
+                      $http.get('/api/constituents').then(function (res) {
+                          console.log(JSON.stringify(res));
+                          $scope.constituent = res.data[0];
                           $scope.isReady = true;
                       });
                   });
